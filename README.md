@@ -1,4 +1,4 @@
-# learning-deno
+# Learning Deno
 
 ![](https://deno.land/images/deno_logo_4.gif)
 
