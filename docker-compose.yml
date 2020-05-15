@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+    deno-database:
+        image: mongo
+        restart: always
+        container_name: deno-database
+        ports:
+            - 127.0.0.1:27017:27017
+        volumes:
+            - "./database/:/data/db"
+        networks:
+            - deno-network
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=deno
+            - MONGO_INITDB_ROOT_PASSWORD=b5c24f92ecb4f985e8a448871b16c0
+
+    deno-api:
+        container_name: deno-api
+        restart: always
+        ports:
+            - 3001:3001
+        build:
+            context: ./api
+            dockerfile: Dockerfile
+        networks:
+            - deno-network
+        environment:
+            - PROD=true
+            - MONGODB=mongodb://deno:b5c24f92ecb4f985e8a448871b16c0@deno-database:27017/deno-database?authSource=admin
+
+networks:
+    deno-network:
