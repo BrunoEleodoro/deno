@@ -1,6 +1,6 @@
 import { Application, Router } from "./deps.ts";
 
-const app = new Application({ port: 3000 });
+const app = new Application({ port: 3001 });
 
 // Middleware
 app.use((ctx) => {
@@ -10,11 +10,7 @@ app.use((ctx) => {
 });
 
 app.get("/", (ctx) => {
-  return { "hello": "world" };
-});
-
-app.post("/cadastrar", async (ctx) => {
-  return ctx.req.body;
+  return { "secret": Deno.env.get("SECRET") };
 });
 
 await app.run();

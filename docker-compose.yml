@@ -19,7 +19,7 @@ services:
         container_name: deno-api
         restart: always
         ports:
-            - 3001:3001
+            - 3000:3000
         build:
             context: ./api
             dockerfile: Dockerfile
@@ -28,6 +28,19 @@ services:
         environment:
             - PROD=true
             - MONGODB=mongodb://deno:b5c24f92ecb4f985e8a448871b16c0@deno-database:27017/deno-database?authSource=admin
+    
+    deno-auth:
+        container_name: deno-auth
+        restart: always
+        ports:
+            - 3001:3001
+        build:
+            context: ./auth
+            dockerfile: Dockerfile
+        networks:
+            - deno-network
+        environment:
+            - SECRET=majVI9DUE7JZaSNoHsTXsKVP6jGRCNY21321fd
 
 networks:
     deno-network:
